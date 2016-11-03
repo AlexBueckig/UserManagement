@@ -4,7 +4,7 @@
   "description": "Masterarbeit-Server",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --watch src --exec npm run babel-node -- src/server.js",
+    "start": "nodemon --watch src --exec npm run babel-node -- src/index.js",
     "test": "eslint src",
     "babel-node": "babel-node --presets=es2015"
   },
@@ -17,8 +17,10 @@
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
     "knex": "^0.12.6",
+    "lodash": "^4.16.6",
     "nodemon": "^1.11.0",
-    "pg": "^6.1.0"
+    "pg": "^6.1.0",
+    "validator": "^6.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
