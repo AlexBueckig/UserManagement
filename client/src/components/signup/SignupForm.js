@@ -2,7 +2,7 @@
  * Created by Alex on 01.11.2016.
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
@@ -11,22 +11,22 @@ import TextFieldGroup from '../common/TextFieldGroup';
 function validateInput(data) {
     let errors = {};
 
-    if(!Validator.isEmail(data.email)) {
+    if (!Validator.isEmail(data.email)) {
         errors.email = 'Email is invalid';
     }
-    if(Validator.isEmpty(data.email)) {
+    if (Validator.isEmpty(data.email)) {
         errors.email = 'This field is required';
     }
-    if(Validator.isEmpty(data.username)) {
+    if (Validator.isEmpty(data.username)) {
         errors.username = 'This field is required';
     }
-    if(Validator.isEmpty(data.password)) {
+    if (Validator.isEmpty(data.password)) {
         errors.password = 'This field is required';
     }
-    if(!Validator.equals(data.password, data.passwordConfirmation)) {
+    if (!Validator.equals(data.password, data.passwordConfirmation)) {
         errors.passwordConfirmation = 'Passwords must match'
     }
-    if(Validator.isEmpty(data.passwordConfirmation)) {
+    if (Validator.isEmpty(data.passwordConfirmation)) {
         errors.passwordConfirmation = 'This field is required';
     }
 
@@ -45,11 +45,13 @@ class SignupForm extends Component {
             password: '',
             passwordConfirmation: '',
             errors: {},
-            isLoading: false
+            isLoading: false,
+            invalid: false
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.checkUserExists = this.checkUserExists.bind(this);
     }
 
     onChange(e) {
@@ -57,9 +59,9 @@ class SignupForm extends Component {
     }
 
     isValid() {
-        const { errors, isValid } = validateInput(this.state);
+        const {errors, isValid} = validateInput(this.state);
 
-        if(!isValid) {
+        if (!isValid) {
             this.setState({errors});
         }
 
@@ -68,7 +70,7 @@ class SignupForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        if(this.isValid()) {
+        if (this.isValid()) {
             this.setState({errors: {}, isLoading: true});
             this.props.userSignupRequest(this.state).then(
                 () => {
@@ -83,8 +85,26 @@ class SignupForm extends Component {
         }
     }
 
+    checkUserExists(e) {
+        const field = e.target.name;
+        const value = e.target.value;
+        if (value !== '') {
+            this.props.userExists(value).then(
+                res => {
+                    let errors = this.state.errors;
+                    if(res.data.user) {
+                        errors[field] = field.charAt(0).toUpperCase() + field.slice(1) + ' already exists';
+                    } else {
+                        delete errors[field];
+                    }
+                    this.setState({errors, invalid: !isEmpty(errors)});
+                }
+            );
+        }
+    }
+
     render() {
-        const { errors } = this.state;
+        const {errors} = this.state;
         return (
             <form onSubmit={this.onSubmit}>
                 <h1>Join our community!</h1>
@@ -93,6 +113,7 @@ class SignupForm extends Component {
                     value={this.state.username}
                     label="Username"
                     onChange={this.onChange}
+                    checkUserExists={this.checkUserExists}
                     error={errors.username}
                 />
                 <TextFieldGroup
@@ -100,6 +121,7 @@ class SignupForm extends Component {
                     value={this.state.email}
                     label="Email"
                     onChange={this.onChange}
+                    checkUserExists={this.checkUserExists}
                     error={errors.email}
                 />
                 <TextFieldGroup
@@ -119,7 +141,7 @@ class SignupForm extends Component {
                     error={errors.passwordConfirmation}
                 />
                 <div className="form-group">
-                    <button className="btn btn-primary btn-lg" disabled={this.state.isLoading}>Sign up</button>
+                    <button className="btn btn-primary btn-lg" disabled={this.state.isLoading || this.state.invalid}>Sign up</button>
                 </div>
             </form>
         );
@@ -128,7 +150,8 @@ class SignupForm extends Component {
 
 SignupForm.propTypes = {
     userSignupRequest: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
+    userExists: PropTypes.func.isRequired
 };
 SignupForm.contextTypes = {
     router: PropTypes.object.isRequired
