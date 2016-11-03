@@ -15,8 +15,8 @@ function validateInput(data, otherValidations) {
     let errors = otherValidations(data);
 
     return User.query({
-        where: { email: data.email },
-        orWhere: { username: data.username }
+        where: {email: data.email},
+        orWhere: {username: data.username}
     }).fetchAll().then(users => {
         users.map(user => {
             if (user) {
@@ -62,17 +62,27 @@ function commonValidations(data) {
     return errors;
 }
 
+router.get('/:identifier', (req, res) => {
+    User.query({
+        select: ['username', 'email'],
+        where: {email: req.params.identifier},
+        orWhere: {username: req.params.identifier}
+    }).fetch().then(user =>
+        res.json({ user })
+    );
+});
+
 router.post('/', (req, res) => {
-    validateInput(req.body, commonValidations).then(({ errors, isValid }) => {
+    validateInput(req.body, commonValidations).then(({errors, isValid}) => {
         if (isValid) {
-            const { username, password, timezone, email } = req.body;
+            const {username, password, timezone, email} = req.body;
             const password_digest = bcrypt.hashSync(password, 10);
 
             User.forge({
                 username, timezone, email, password_digest
-            }, { hasTimestamps: true }).save()
-                .then(user => res.json({ success: true }))
-                .catch(err => res.status(500).json({ error: err }));
+            }, {hasTimestamps: true}).save()
+                .then(user => res.json({success: true}))
+                .catch(err => res.status(500).json({error: err}));
 
         } else {
             res.status(400).json(errors);
