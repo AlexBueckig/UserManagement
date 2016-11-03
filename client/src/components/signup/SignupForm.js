@@ -2,10 +2,7 @@
  * Created by Alex on 01.11.2016.
  */
 
-import React, {
-    Component,
-    PropTypes,
-} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class SignupForm extends Component {
     constructor(props) {
@@ -27,7 +24,7 @@ class SignupForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
+        this.props.userSignupRequest(this.state);
     }
 
     render() {
@@ -59,7 +56,7 @@ class SignupForm extends Component {
                     <input
                         value={this.state.password}
                         onChange={this.onChange}
-                        type="text"
+                        type="password"
                         name="password"
                         className="form-control"
                     />
@@ -69,7 +66,7 @@ class SignupForm extends Component {
                     <input
                         value={this.state.passwordConfirmation}
                         onChange={this.onChange}
-                        type="text"
+                        type="password"
                         name="passwordConfirmation"
                         className="form-control"
                     />
@@ -82,7 +79,9 @@ class SignupForm extends Component {
     }
 }
 
-SignupForm.propTypes = {};
+SignupForm.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired
+};
 SignupForm.defaultProps = {};
 
 export default SignupForm;

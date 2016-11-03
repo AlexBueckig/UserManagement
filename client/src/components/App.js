@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Match, Miss } from 'react-router';
 
 import NavigationBar from './NavigationBar';
-import Greetings from './Greetings';
 import SignupPage from './signup/SignupPage';
 import NotFound from './NotFound';
 
@@ -13,7 +12,6 @@ class App extends Component {
             <div className="container">
                 <NavigationBar />
                 <Match exactly pattern="/" render={() => (<div>Home</div>)} />
-                <Match pattern="/greetings" component={Greetings} />
                 <Match pattern="/signup" component={SignupPage} />
                 <Miss component={NotFound} />
             </div>
