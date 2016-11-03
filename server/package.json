@@ -20,7 +20,6 @@
     "jsonwebtoken": "^7.1.9",
     "knex": "^0.12.6",
     "lodash": "^4.16.6",
-    "lodash.isnull": "^3.0.0",
     "nodemon": "^1.11.0",
     "pg": "^6.1.0",
     "validator": "^6.1.0"
