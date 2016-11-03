@@ -71,7 +71,9 @@ class SignupForm extends Component {
         if(this.isValid()) {
             this.setState({errors: {}, isLoading: true});
             this.props.userSignupRequest(this.state).then(
-                () => {},
+                () => {
+                    this.context.router.transitionTo('/');
+                },
                 (err) => this.setState({errors: err.response.data, isLoading: false})
             );
         }
@@ -123,6 +125,8 @@ class SignupForm extends Component {
 SignupForm.propTypes = {
     userSignupRequest: PropTypes.func.isRequired
 };
-SignupForm.defaultProps = {};
+SignupForm.contextTypes = {
+    router: PropTypes.object.isRequired
+};
 
 export default SignupForm;
