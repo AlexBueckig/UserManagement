@@ -11,7 +11,7 @@ class App extends Component {
         <BrowserRouter>
             <div className="container">
                 <NavigationBar />
-                <Match exactly pattern="/" render={() => (<div>Home</div>)} />
+                <Match exactly pattern="/" render={() => (<div className="jumbotron"><h1>Home!</h1></div>)} />
                 <Match pattern="/signup" component={SignupPage} />
                 <Miss component={NotFound} />
             </div>
