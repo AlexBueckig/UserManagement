@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Match, Miss } from 'react-router';
 
 import NavigationBar from './NavigationBar';
+import FlashMessagesList from './flash/FlashMessagesList';
+
 import SignupPage from './signup/SignupPage';
 import NotFound from './NotFound';
 
@@ -11,6 +13,7 @@ class App extends Component {
         <BrowserRouter>
             <div className="container">
                 <NavigationBar />
+                <FlashMessagesList />
                 <Match exactly pattern="/" render={() => (<div className="jumbotron"><h1>Home!</h1></div>)} />
                 <Match pattern="/signup" component={SignupPage} />
                 <Miss component={NotFound} />
