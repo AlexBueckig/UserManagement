@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Match, Miss } from 'react-router';
 
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+
 import NavigationBar from './NavigationBar';
 import FlashMessagesList from './flash/FlashMessagesList';
 
