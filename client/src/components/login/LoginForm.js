@@ -5,7 +5,7 @@ import React, {
     Component,
     PropTypes,
 } from 'react';
-import Validator from 'Validator';
+import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { login } from '../../actions/login';
@@ -58,7 +58,7 @@ class LoginForm extends Component {
             this.setState({ errors: {}, isLoading: true });
             this.props.login(this.state).then(
                 (res) => this.context.router.transitionTo('/'),
-                (err) => this.setState({errors: err.data.errors, isLoading: false})
+                (err) => this.setState({errors: err.response.data.errors, isLoading: false})
             );
         }
     }
@@ -70,7 +70,7 @@ class LoginForm extends Component {
     render() {
         const { identifier, errors, password, isLoading } = this.state;
         return (
-            <form>
+            <form onSubmit={this.onSubmit}>
                 <h1>Login</h1>
                 <TextFieldGroup
                     field="identifier"
