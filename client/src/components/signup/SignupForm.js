@@ -8,6 +8,11 @@ import isEmpty from 'lodash/isEmpty';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
+import { connect } from 'react-redux';
+
+import { userSignupRequest, userExists } from '../../actions/signupActions';
+import { addFlashMessage } from '../../actions/flashMessages';
+
 function validateInput(data) {
     let errors = {};
 
@@ -148,13 +153,9 @@ class SignupForm extends Component {
     }
 }
 
-SignupForm.propTypes = {
-    userSignupRequest: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired,
-    userExists: PropTypes.func.isRequired
-};
+SignupForm.propTypes = {};
 SignupForm.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default SignupForm;
+export default connect(null, { userSignupRequest, addFlashMessage, userExists })(SignupForm);

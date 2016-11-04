@@ -1,15 +1,13 @@
 /**
  * Created by Alex on 04.11.2016.
  */
-import React, {
-    Component,
-    PropTypes,
-} from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-
 import TextFieldGroup from '../common/TextFieldGroup';
+import { login } from '../../actions/authActions';
 
 function validateInput(data) {
     let errors = {};
@@ -27,7 +25,7 @@ function validateInput(data) {
     };
 }
 
-class LoginForm extends Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,8 +42,8 @@ class LoginForm extends Component {
     isValid() {
         const { errors, isValid } = validateInput(this.state);
 
-        if(!isValid) {
-            this.setState({errors});
+        if (!isValid) {
+            this.setState({ errors });
         }
 
         return isValid;
@@ -53,11 +51,11 @@ class LoginForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        if(this.isValid()) {
+        if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
             this.props.login(this.state).then(
                 (res) => this.context.router.transitionTo('/'),
-                (err) => this.setState({errors: err.response.data.errors, isLoading: false})
+                (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
             );
         }
     }
@@ -67,7 +65,8 @@ class LoginForm extends Component {
     }
 
     render() {
-        const { identifier, errors, password, isLoading } = this.state;
+        const { errors, identifier, password, isLoading } = this.state;
+
         return (
             <form onSubmit={this.onSubmit}>
                 <h1>Login</h1>
@@ -76,33 +75,31 @@ class LoginForm extends Component {
 
                 <TextFieldGroup
                     field="identifier"
-                    value={identifier}
                     label="Username / Email"
+                    value={identifier}
                     error={errors.identifier}
                     onChange={this.onChange}
                 />
+
                 <TextFieldGroup
                     field="password"
-                    value={password}
                     label="Password"
+                    value={password}
                     error={errors.password}
                     onChange={this.onChange}
                     type="password"
                 />
-                <div className="form-group">
-                    <button className="btn btn-primary btn-lg" disabled={isLoading}>Login</button>
-                </div>
+
+                <div className="form-group"><button className="btn btn-primary btn-lg" disabled={isLoading}>Login</button></div>
             </form>
         );
     }
 }
 
 LoginForm.propTypes = {};
-LoginForm.defaultProps = {
-    login: PropTypes.func.isRequired
-};
+
 LoginForm.contextTypes = {
-    router: PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
 };
 
-export default LoginForm;
+export default connect(null, { login })(LoginForm);
