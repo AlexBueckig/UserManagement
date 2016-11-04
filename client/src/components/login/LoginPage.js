@@ -1,11 +1,14 @@
 /**
  * Created by Alex on 04.11.2016.
  */
-import React, { Component, PropTypes }  from 'react';
+import React, {
+    Component,
+    PropTypes,
+} from 'react';
 import { connect } from 'react-redux';
 
-import LoginForm from './LoginForm';
 import { login } from '../../actions/login';
+import LoginForm from './LoginForm';
 
 class LoginPage extends Component {
     render() {
@@ -13,7 +16,7 @@ class LoginPage extends Component {
         return (
             <div className="row">
                 <div className="col-md-4 col-md-offset-4">
-                    <LoginForm login={ login }/>
+                    <LoginForm login={login}/>
                 </div>
             </div>
         );
@@ -23,5 +26,6 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
     login: PropTypes.func.isRequired
 };
+LoginPage.defaultProps = {};
 
-export default connect(null, { login })(LoginPage);
+export default connect(null, {login})(LoginPage);

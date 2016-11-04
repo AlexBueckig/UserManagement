@@ -5,10 +5,6 @@
 import React, {Component, PropTypes} from 'react';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
-import { connect } from 'react-redux';
-
-import { userSignupRequest, userExists } from '../../actions/signupActions';
-import { addFlashMessage } from '../../actions/flashMessages';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -76,9 +72,9 @@ class SignupForm extends Component {
         e.preventDefault();
         if (this.isValid()) {
             this.setState({errors: {}, isLoading: true});
-            userSignupRequest(this.state).then(
+            this.props.userSignupRequest(this.state).then(
                 () => {
-                    addFlashMessage({
+                    this.props.addFlashMessage({
                         type: 'success',
                         text: 'You signed up successfully. Welcome!'
                     });
@@ -93,7 +89,7 @@ class SignupForm extends Component {
         const field = e.target.name;
         const value = e.target.value;
         if (value !== '') {
-            userExists(value).then(
+            this.props.userExists(value).then(
                 res => {
                     let errors = this.state.errors;
                     if(res.data.user) {
@@ -152,9 +148,13 @@ class SignupForm extends Component {
     }
 }
 
-SignupForm.propTypes = {};
+SignupForm.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    userExists: PropTypes.func.isRequired
+};
 SignupForm.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default connect(null, { userSignupRequest, addFlashMessage, userExists })(SignupForm);
+export default SignupForm;

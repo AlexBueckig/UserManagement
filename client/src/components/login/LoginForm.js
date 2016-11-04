@@ -8,6 +8,7 @@ import React, {
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
+
 import TextFieldGroup from '../common/TextFieldGroup';
 
 function validateInput(data) {
@@ -93,10 +94,10 @@ class LoginForm extends Component {
     }
 }
 
-LoginForm.propTypes = {
+LoginForm.propTypes = {};
+LoginForm.defaultProps = {
     login: PropTypes.func.isRequired
 };
-LoginForm.defaultProps = {};
 LoginForm.contextTypes = {
     router: PropTypes.object.isRequired
 };
