@@ -6,6 +6,8 @@ import React, {
     PropTypes,
 } from 'react';
 
+import LoginForm from './LoginForm';
+
 class LoginPage extends Component {
     render() {
         return (
