@@ -9,6 +9,7 @@ import { login } from '../../actions/login';
 
 class LoginPage extends Component {
     render() {
+        const { login } = this.props;
         return (
             <div className="row">
                 <div className="col-md-4 col-md-offset-4">
