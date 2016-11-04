@@ -5,6 +5,7 @@ import NavigationBar from './NavigationBar';
 import FlashMessagesList from './flash/FlashMessagesList';
 
 import SignupPage from './signup/SignupPage';
+import LoginPage from './login/LoginPage';
 import NotFound from './NotFound';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
                 <FlashMessagesList />
                 <Match exactly pattern="/" render={() => (<div className="jumbotron"><h1>Home!</h1></div>)} />
                 <Match pattern="/signup" component={SignupPage} />
+                <Match pattern="/login" component={LoginPage} />
                 <Miss component={NotFound} />
             </div>
         </BrowserRouter>
