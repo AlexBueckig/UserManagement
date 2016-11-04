@@ -7,8 +7,6 @@ import React, {
 } from 'react';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
-import { connect } from 'react-redux';
-import { login } from '../../actions/login';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -103,4 +101,4 @@ LoginForm.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default connect(null, { login })(LoginForm);
+export default LoginForm;
