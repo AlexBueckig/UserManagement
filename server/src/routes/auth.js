@@ -5,6 +5,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 
 import User from '../models/user';
 import config from '../config';
@@ -21,7 +22,8 @@ router.post('/', (req, res) => {
             if(bcrypt.compareSync(password, user.get('password_digest'))) {
                 const token = jwt.sign({
                     id: user.get('id'),
-                    username: user.get('username')
+                    username: user.get('username'),
+                    isAdmin: _.indexOf(config.adminUsers, user.get('username')) !== -1
                 }, config.jwtSecret);
                 res.json({ token });
             } else {

@@ -3,5 +3,9 @@
  */
 
 export default {
-  jwtSecret: 'test123'
+  jwtSecret: 'RW^UPm$2Wj-GB6FvRbSABTEk-WF_a8B85j_j@LXDA2T8MkU_Jx',
+  adminUsers: [
+      'admin',
+      'test'
+  ]
 };

@@ -73,7 +73,6 @@ router.get('/:identifier', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
     validateInput(req.body, commonValidations).then(({errors, isValid}) => {
         if (isValid) {
             const {username, password, email} = req.body;
