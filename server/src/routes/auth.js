@@ -5,7 +5,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import _ from 'lodash';
+import indexOf from 'lodash/indexOf';
 
 import User from '../models/user';
 import config from '../config';
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
                 const token = jwt.sign({
                     id: user.get('id'),
                     username: user.get('username'),
-                    isAdmin: _.indexOf(config.adminUsers, user.get('username')) !== -1
+                    isAdmin: indexOf(config.adminUsers, user.get('username')) !== -1
                 }, config.jwtSecret);
                 res.json({ token });
             } else {
