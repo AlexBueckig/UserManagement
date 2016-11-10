@@ -19,13 +19,13 @@ class NavigationBar extends Component {
 
         const adminLinks = (
             <ul className="nav navbar-nav navbar-left">
-                <li><Link to="/greetings">AdminLink1</Link></li>
+                <li><Link to="/admin">Adminpanel</Link></li>
             </ul>
         );
         const userLinks = (
             <div>
                 <ul className="nav navbar-nav navbar-left">
-                    <li><a href="#">My Projects</a></li>
+                    <li><Link to='/myprojects'>My Projects</Link></li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">
                     <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
