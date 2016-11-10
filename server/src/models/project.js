@@ -3,6 +3,12 @@
  */
 import bookshelf from '../bookshelf';
 
+import User from './user';
+
 export default bookshelf.Model.extend({
-    tableName: 'projects'
+    tableName: 'projects',
+    hasTimestamps: true,
+    users: function() {
+        return this.belongsToMany(User);
+    }
 });

@@ -34,7 +34,6 @@ function validateInput(data, otherValidations) {
             isValid: isEmpty(errors)
         };
     })
-
 }
 
 function commonValidations(data) {
@@ -69,7 +68,7 @@ router.get('/:identifier', (req, res) => {
         orWhere: {username: req.params.identifier}
     }).fetch().then(user =>
         res.json({ user })
-    );
+    ).catch(err => res.status(500).json({error: err}));
 });
 
 router.post('/', (req, res) => {
@@ -80,7 +79,7 @@ router.post('/', (req, res) => {
 
             User.forge({
                 username, email, password_digest
-            }, {hasTimestamps: true}).save()
+            }).save()
                 .then(user => res.json({success: true}))
                 .catch(err => res.status(500).json({error: err}));
 

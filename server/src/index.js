@@ -8,6 +8,7 @@ import path from 'path';
 
 import users from './routes/users';
 import auth from './routes/auth';
+import projects from './routes/projects';
 
 let app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/projects', projects);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
