@@ -3,10 +3,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import classnames from 'classnames';
-
-import { deleteFlashMessage } from '../../actions/flashMessages';
 
 class FlashMessage extends Component {
     constructor(props) {
@@ -35,7 +32,8 @@ class FlashMessage extends Component {
 
 FlashMessage.propTypes = {
     message: PropTypes.object.isRequired,
+    deleteFlashMessage: PropTypes.func.isRequired
 };
 FlashMessage.defaultProps = {};
 
-export default connect(null, { deleteFlashMessage })(FlashMessage);
+export default FlashMessage;

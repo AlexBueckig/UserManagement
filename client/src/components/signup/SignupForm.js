@@ -8,10 +8,6 @@ import isEmpty from 'lodash/isEmpty';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
-import { connect } from 'react-redux';
-
-import { userSignupRequest, userExists } from '../../actions/signupActions';
-import { addFlashMessage } from '../../actions/flashMessages';
 
 function validateInput(data) {
     let errors = {};
@@ -97,7 +93,7 @@ class SignupForm extends Component {
             this.props.userExists(value).then(
                 res => {
                     let errors = this.state.errors;
-                    if(res.data.user) {
+                    if (res.data.user) {
                         errors[field] = field.charAt(0).toUpperCase() + field.slice(1) + ' already exists';
                     } else {
                         delete errors[field];
@@ -153,9 +149,13 @@ class SignupForm extends Component {
     }
 }
 
-SignupForm.propTypes = {};
+SignupForm.propTypes = {
+    userSignupRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
+    userExists: PropTypes.func.isRequired
+};
 SignupForm.contextTypes = {
     router: PropTypes.object.isRequired
 };
 
-export default connect(null, { userSignupRequest, addFlashMessage, userExists })(SignupForm);
+export default SignupForm;

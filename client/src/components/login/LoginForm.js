@@ -1,13 +1,11 @@
 /**
  * Created by Alex on 04.11.2016.
  */
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 import TextFieldGroup from '../common/TextFieldGroup';
-import { login } from '../../actions/authActions';
 
 function validateInput(data) {
     let errors = {};
@@ -96,10 +94,12 @@ class LoginForm extends React.Component {
     }
 }
 
-LoginForm.propTypes = {};
+LoginForm.propTypes = {
+    login: PropTypes.func.usRequired
+};
 
 LoginForm.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect(null, { login })(LoginForm);
+export default LoginForm;
