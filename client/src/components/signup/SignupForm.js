@@ -8,7 +8,6 @@ import isEmpty from 'lodash/isEmpty';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
-
 function validateInput(data) {
     let errors = {};
 
@@ -79,7 +78,7 @@ class SignupForm extends Component {
                         type: 'success',
                         text: 'You signed up successfully. Welcome!'
                     });
-                    this.context.router.transitionTo('/');
+                    this.context.router.push('/');
                 },
                 (err) => this.setState({errors: err.response.data, isLoading: false})
             );
@@ -114,7 +113,7 @@ class SignupForm extends Component {
                     value={this.state.username}
                     label="Username"
                     onChange={this.onChange}
-                    checkUserExists={this.checkUserExists}
+                    checkFieldExists={this.checkUserExists}
                     error={errors.username}
                 />
                 <TextFieldGroup
@@ -122,7 +121,7 @@ class SignupForm extends Component {
                     value={this.state.email}
                     label="Email"
                     onChange={this.onChange}
-                    checkUserExists={this.checkUserExists}
+                    checkFieldExists={this.checkUserExists}
                     error={errors.email}
                 />
                 <TextFieldGroup

@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import { Match } from 'react-router';
-
 const MatchWithSubRoutes = (route) => {
     return (
         <Match {...route} render={(props) => (
@@ -12,7 +11,4 @@ const MatchWithSubRoutes = (route) => {
         )}/>
     );
 };
-
 export default MatchWithSubRoutes;
-
-

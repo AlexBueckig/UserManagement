@@ -3,6 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import FlashMessage from './FlashMessage';
 import { deleteFlashMessage } from '../../actions/flashMessages';
@@ -10,7 +11,7 @@ import { deleteFlashMessage } from '../../actions/flashMessages';
 class FlashMessagesList extends Component {
     render() {
         const {deleteFlashMessage} = this.props;
-        const messages = this.props.messages.map(message =>
+        const messages = _.map(this.props.messages, message =>
             <FlashMessage
                 key={message.id}
                 message={message}
@@ -24,7 +25,7 @@ class FlashMessagesList extends Component {
 }
 
 FlashMessagesList.propTypes = {
-    messages: PropTypes.array.isRequired
+    messages: PropTypes.object.isRequired
 };
 
 FlashMessagesList.defaultProps = {};
