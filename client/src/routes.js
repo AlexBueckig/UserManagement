@@ -8,6 +8,7 @@ import IndexPage from './components/IndexPage'
 import ProjectsPage from './components/projects/ProjectsPage';
 import ProjectManagementPage from './components/admin/project/ProjectManagementPage';
 import AdminMenu from './components/admin/AdminMenu';
+import UserManagementPage from './components/admin/user/UserManagementPage';
 
 import requireAuth from './utils/requireAuth';
 
@@ -29,6 +30,10 @@ const routes = [
             {
                 pattern: '/admin/projects',
                 component: requireAuth(ProjectManagementPage, true)
+            },
+            {
+                pattern: '/admin/users',
+                component: requireAuth(UserManagementPage, true)
             }
         ]
     },

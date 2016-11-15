@@ -6,15 +6,16 @@ import MatchWithSubRoutes from '../common/MatchWithSubRoutes';
 
 const AdminPage = ({routes}) => {
     return (
-        <div className="jumbotron">
-            {
-                routes.map((route, i) => (
-                    <MatchWithSubRoutes key={i} {...route}/>
-                ))
-            }
+        <div className="panel panel-default">
+            <div className="panel-body">
+                {
+                    routes.map((route, i) => (
+                        <MatchWithSubRoutes key={i} {...route}/>
+                    ))
+                }
+            </div>
         </div>
     );
 };
 
 export default AdminPage;
-
