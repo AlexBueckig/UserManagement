@@ -2,16 +2,16 @@
  * Created by Alex on 10.11.2016.
  */
 
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './reducers/rootReducer';
 
 const store = createStore(
     rootReducer,
-    compose(
-        applyMiddleware(thunk),
-        window.devToolsExtension ? window.devToolsExtension() : f => f
+    composeWithDevTools(
+        applyMiddleware(thunk)
     )
 );
 

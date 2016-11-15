@@ -51,8 +51,8 @@ class LoginForm extends React.Component {
         e.preventDefault();
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
-            this.props.login(this.state).then(
-                (res) => this.context.router.transitionTo('/'),
+            this.props.login({identifier: this.state.identifier, password: this.state.password}).then(
+                (res) => this.context.router.push('/'),
                 (err) => this.setState({ errors: err.response.data.errors, isLoading: false })
             );
         }
@@ -95,7 +95,7 @@ class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-    login: PropTypes.func.usRequired
+    login: PropTypes.func.isRequired
 };
 
 LoginForm.contextTypes = {
