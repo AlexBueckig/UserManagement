@@ -5,6 +5,5 @@ import bookshelf from '../bookshelf';
 import User from '../models/user';
 
 export default bookshelf.Model.extend({
-    tableName: 'projects_users',
-    hasTimestamps: true
+    tableName: 'projects_users'
 });

@@ -31,7 +31,13 @@ router.get('/:identifier/users', authenticate, (req, res) => {
         where: {
             id: req.params.identifier
         }
-    }).fetch({withRelated: ['users']})
+    }).fetch({
+        withRelated: [{
+            'users': (qb) => {
+                qb.select(['users.username', 'users.email', 'users.id']);
+            }
+        }]
+    })
         .then(project => {
             if (project !== null)
                 res.send({project});
@@ -104,8 +110,24 @@ router.post('/:identifier/users', authenticateAdmin, (req, res) => {
 
 router.delete('/:identifier', (req, res) => {
     Project.forge({id: req.params.identifier}).destroy()
-        .then(success => res.json({success:true}))
+        .then(success => res.json({success: true}))
         .catch(err => res.status(500).json({error: err}));
+});
+
+router.delete('/:project/users/:user', (req, res) => {
+    ProjectUser.query({
+        where: {
+            project_id: req.params.project
+        },
+        andWhere: {
+            user_id: req.params.user
+        }
+    }).fetch().then(projectUser =>
+        ProjectUser.forge({id: projectUser.id}).destroy()
+            .then(success => res.json({success: true}))
+            .catch(err => res.status(500).json({error: err}))
+    )
+    .catch(err => res.status(500).json({error: err}));
 });
 
 export default router;

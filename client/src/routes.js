@@ -7,6 +7,7 @@ import AdminPage from './components/admin/AdminPage';
 import IndexPage from './components/IndexPage'
 import ProjectsPage from './components/projects/ProjectsPage';
 import ProjectManagementPage from './components/admin/project/ProjectManagementPage';
+import ProjectEditPage from './components/admin/project/ProjectEditPage';
 import AdminMenu from './components/admin/AdminMenu';
 import UserManagementPage from './components/admin/user/UserManagementPage';
 
@@ -29,7 +30,13 @@ const routes = [
             },
             {
                 pattern: '/admin/projects',
+                exactly: true,
                 component: requireAuth(ProjectManagementPage, true)
+            },
+            {
+                pattern: '/admin/projects/:identifier',
+                exactly: true,
+                component: requireAuth(ProjectEditPage, true)
             },
             {
                 pattern: '/admin/users',

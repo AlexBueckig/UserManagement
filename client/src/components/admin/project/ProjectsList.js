@@ -5,6 +5,8 @@ import React, {
     Component,
     PropTypes
 } from 'react';
+
+import {Link} from 'react-router';
 import _ from 'lodash';
 
 class ProjectsList extends Component {
@@ -41,7 +43,7 @@ class ProjectsList extends Component {
                                 <td>{project.id}</td>
                                 <td>{project.name}</td>
                                 <td>{project.github}</td>
-                                <td className="list-button"><div className="glyphicon glyphicon-pencil" data-id={project.id}> </div></td>
+                                <td className="list-button"><Link to={`/admin/projects/${project.id}`} className="glyphicon glyphicon-pencil"> </Link></td>
                                 <td className="list-button"><div className="glyphicon glyphicon-remove glyphicon-color-red" data-id={project.id} onClick={this.onClick}> </div></td>
                             </tr>))
                     }

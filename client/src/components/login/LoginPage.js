@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import LoginForm from './LoginForm';
 import { login } from '../../actions/authActions';
 
-const LoginPage = () => {
-    const {login} = this.props;
+const LoginPage = (props) => {
+    const {login} = props;
     return (
         <div className="row">
             <div className="col-md-4 col-md-offset-4">

@@ -26,7 +26,7 @@ class UserList extends Component {
     }
 
     render(){
-        const {users} = this.props;
+        const {users, editUser, deleteUser} = this.props;
         return (
             <div className="container-fluid">
                 <h2>Users</h2>
@@ -36,8 +36,8 @@ class UserList extends Component {
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th> </th>
-                        <th> </th>
+                        {editUser && <th> </th>}
+                        {deleteUser && <th> </th>}
                     </tr>
                     </thead>
                     <tbody>
@@ -47,8 +47,8 @@ class UserList extends Component {
                                 <td>{user.id}</td>
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
-                                <td className="list-button"><div className="glyphicon glyphicon-pencil" data-id={user.id} onClick={this.editUser} > </div></td>
-                                <td className="list-button"><div className="glyphicon glyphicon-remove glyphicon-color-red" data-id={user.id} onClick={this.deleteUser}> </div></td>
+                                {editUser && <td className="list-button"><div className="glyphicon glyphicon-pencil" data-id={user.id} onClick={this.editUser} > </div></td>}
+                                {deleteUser && <td className="list-button"><div className="glyphicon glyphicon-remove glyphicon-color-red" data-id={user.id} onClick={this.deleteUser}> </div></td>}
                             </tr>))
                     }
                     </tbody>
@@ -60,9 +60,11 @@ class UserList extends Component {
 
 UserList.propTypes = {
     users: PropTypes.object.isRequired,
-    editUser: PropTypes.func.isRequired,
-    deleteUser: PropTypes.func.isRequired
+    editUser: PropTypes.func,
+    deleteUser: PropTypes.func
 };
-UserList.defaultProps = {};
+UserList.defaultProps = {
+    users: {}
+};
 
 export default UserList;

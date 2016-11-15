@@ -19,8 +19,11 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/projects', projects);
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get('*', (req, res) => {
+    if (req.originalUrl.endsWith('.js') || req.originalUrl.endsWith('.css') || req.originalUrl.endsWith('.ico') || req.originalUrl.endsWith('.ttf') || req.originalUrl.endsWith('.woff') || req.originalUrl.endsWith('.woff2'))
+        res.sendFile(__dirname + '/www' + req.originalUrl);
+    else
+        res.sendFile(__dirname + '/www/index.html');
 });
 
 app.listen(3030, () => console.log('Server running on localhost:3030'));
