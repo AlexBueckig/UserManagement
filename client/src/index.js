@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
-import { BrowserRouter } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux'
 import jwt_decode from 'jwt-decode';
-
 import './styles/index.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import 'jquery/jquery'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap';
 
-import App from './components/App';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import {setCurrentUser} from './actions/authActions';
 import store from './store';
+import routes from './routes';
+import NotFound from './components/NotFound';
+
+const history = syncHistoryWithStore(browserHistory, store);
 
 if (localStorage.jwtToken) {
     setAuthorizationToken(localStorage.jwtToken);
@@ -19,9 +24,31 @@ if (localStorage.jwtToken) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <Router history={history} routes={routes}>
+            <Route path="*" component={NotFound} />
+        </Router>
     </Provider>,
     document.getElementById('root')
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

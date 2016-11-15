@@ -12,7 +12,7 @@ import User from '../models/user';
 let router = express.Router();
 
 function validateInput(data, otherValidations) {
-    let errors = otherValidations(data);
+    let {errors, isValid} = otherValidations(data);
 
     return User.query({
         where: {email: data.email},
@@ -58,17 +58,38 @@ function commonValidations(data) {
         errors.passwordConfirmation = 'This field is required';
     }
 
-    return errors;
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    };
 }
 
 router.get('/:identifier', (req, res) => {
     User.query({
-        select: ['username', 'email'],
+        select: ['id', 'username', 'email'],
         where: {email: req.params.identifier},
         orWhere: {username: req.params.identifier}
-    }).fetch().then(user =>
-        res.json({ user })
-    ).catch(err => res.status(500).json({error: err}));
+    }).fetch()
+        .then(user => res.json({user}))
+        .catch(err => res.status(500).json({error: err}));
+});
+
+router.get('/:identifier/projects', (req, res) => {
+    User.query({
+        select: ['id', 'username', 'email'],
+        where: {email: req.params.identifier},
+        orWhere: {username: req.params.identifier}
+    }).fetch({withRelated: ['projects']})
+        .then(user => res.json({user}))
+        .catch(err => res.status(500).json({error: err}));
+});
+
+router.get('/', (req, res) => {
+    User.query({
+        select: ['id', 'username', 'email']
+    }).fetchAll()
+        .then(users => res.json({users}))
+        .catch(err => res.status(500).json({error: err}))
 });
 
 router.post('/', (req, res) => {
@@ -80,13 +101,19 @@ router.post('/', (req, res) => {
             User.forge({
                 username, email, password_digest
             }).save()
-                .then(user => res.json({success: true}))
+                .then(user => res.status(201).json({success: true}))
                 .catch(err => res.status(500).json({error: err}));
 
         } else {
             res.status(400).json(errors);
         }
     });
+});
+
+router.delete('/:identifier', (req, res) => {
+    User.forge({id: req.params.identifier}).destroy()
+        .then(success => res.json({success:true}))
+        .catch(err => res.status(500).json({error: err}));
 });
 
 export default router;

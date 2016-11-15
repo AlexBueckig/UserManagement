@@ -3,11 +3,17 @@
  */
 
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 import auth from './auth';
 import flashMessages from './flashMessages';
+import projects from './projects';
+import users from './users';
 
 export default combineReducers({
     auth,
-    flashMessages
+    flashMessages,
+    projects,
+    users,
+    routing: routerReducer
 });
