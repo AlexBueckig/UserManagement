@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
+import {Miss} from 'react-router';
 
 import NavigationBar from './NavigationBar';
 import FlashMessagesList from './flash/FlashMessagesList';
+import NotFound from './NotFound';
+
+import MatchWithSubRoutes from './common/MatchWithSubRoutes';
+
+import routes from '../routes';
 
 class App extends Component {
     render() {
@@ -9,7 +15,8 @@ class App extends Component {
             <div className="container">
                 <NavigationBar />
                 <FlashMessagesList />
-                {this.props.children}
+                {routes.map((route, i) => (<MatchWithSubRoutes key={i} {...route}/>))}
+                <Miss component={NotFound}/>
             </div>
         );
     }
